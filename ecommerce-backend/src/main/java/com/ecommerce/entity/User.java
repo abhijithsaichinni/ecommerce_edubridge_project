@@ -1,5 +1,7 @@
 package com.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +26,10 @@ public class User {
         ADMIN, CUSTOMER
     }
 
+    @OneToOne(mappedBy = "user")
+    @JsonBackReference
+    private Cart cart;
+    
     // Getters and Setters
     public Long getId() {
         return id;
@@ -67,5 +73,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = Role.valueOf(role.toUpperCase());
+    }
+    
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }
